@@ -18,7 +18,7 @@ enum TokenType {
 
 struct Token {
     TokenType type;
-    unsigned int value;  // только для TOK_INT 
+    unsigned int value;  
     std::string lexeme;
 };
 
@@ -38,5 +38,6 @@ private:
     Token scanNumber();
     Token scanOperator();
 };
+
 
 #endif
