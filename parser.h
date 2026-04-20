@@ -16,7 +16,6 @@ private:
     Token currentToken;
     
     void consume(TokenType expected);
-    unsigned int parseProgramPrime();  // для обработки продолжения программы
     unsigned int parseExpr();
     unsigned int parseOrExpr();
     unsigned int parseOrPrime(unsigned int left);
