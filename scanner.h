@@ -5,13 +5,14 @@
 
 enum TokenType {
     TOK_INT,      
-    TOK_OR,      
-    TOK_AND,      
+    TOK_OR,       // '|'
+    TOK_AND,      // '&'
     TOK_SHL,      // '<<'
     TOK_SHR,      // '>>'
     TOK_NOT,      // '~'
     TOK_LPAREN,   // '('
     TOK_RPAREN,   // ')'
+    TOK_SEMICOLON,// ';'  <-- ДОБАВЛЯЕМ
     TOK_END,     
     TOK_ERROR     
 };
@@ -38,6 +39,5 @@ private:
     Token scanNumber();
     Token scanOperator();
 };
-
 
 #endif
