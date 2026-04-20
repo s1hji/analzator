@@ -86,7 +86,7 @@ void runTests() {
         {"1 | 2 | 4", 7, "Multiple OR"},
         {"7 & 5 & 3", 1, "Multiple AND"},
         {"1 << 1 << 1", 4, "Multiple shifts"},
-        {"(1+2)", 1, "Invalid char error test"},  // синтаксическая ошибка
+      
     };
     
     for (const auto& test : positiveTests) {
