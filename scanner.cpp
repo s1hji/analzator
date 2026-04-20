@@ -41,7 +41,6 @@ Token Scanner::scanNumber() {
         return {TOK_ERROR, 0, std::string("Lexical error: Unexpected character: ") + currentChar};
     }
 
-    // проверка переполнение
     unsigned long long val = 0;
     for (char c : numStr) {
         val = val * 10 + (c - '0');
@@ -70,6 +69,7 @@ Token Scanner::scanOperator() {
         case '~': return {TOK_NOT, 0, lexeme};
         case '(': return {TOK_LPAREN, 0, lexeme};
         case ')': return {TOK_RPAREN, 0, lexeme};
+        case ';': return {TOK_SEMICOLON, 0, lexeme};  // <-- ДОБАВЛЯЕМ
         default:  return {TOK_ERROR, 0, "Unknown operator"};
     }
 }
@@ -86,11 +86,12 @@ Token Scanner::getNextToken() {
     }
     
     if (currentChar == '|' || currentChar == '&' || currentChar == '~' || 
-        currentChar == '(' || currentChar == ')' ||
+        currentChar == '(' || currentChar == ')' || currentChar == ';' ||
         currentChar == '<' || currentChar == '>') {
         return scanOperator();
     }
     
+    char errChar = currentChar;
     advance();
-    return {TOK_ERROR, 0, std::string("Lexical error: Unexpected character: ") + currentChar};
+    return {TOK_ERROR, 0, std::string("Lexical error: Unexpected character: ") + errChar};
 }
