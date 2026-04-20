@@ -21,12 +21,42 @@ void Parser::consume(TokenType expected) {
     }
 }
 
+// Парсинг одного выражения (для обратной совместимости)
 unsigned int Parser::parse() {
     unsigned int result = parseExpr();
     if (currentToken.type != TOK_END) {
         error("Unexpected tokens after expression");
     }
     return result;
+}
+
+// Парсинг программы: <program> ::= <expr> <program'>
+std::vector<unsigned int> Parser::parseProgram() {
+    std::vector<unsigned int> results;
+    
+    // Парсим первое выражение
+    if (currentToken.type == TOK_END) {
+        return results;  // пустая программа
+    }
+    
+    unsigned int firstResult = parseExpr();
+    results.push_back(firstResult);
+    
+    // Парсим продолжение
+    while (currentToken.type == TOK_SEMICOLON) {
+        consume(TOK_SEMICOLON);
+        if (currentToken.type == TOK_END) {
+            error("Expected expression after ';'");
+        }
+        unsigned int nextResult = parseExpr();
+        results.push_back(nextResult);
+    }
+    
+    if (currentToken.type != TOK_END) {
+        error("Unexpected tokens after expression");
+    }
+    
+    return results;
 }
 
 void Parser::checkToken() {
@@ -83,7 +113,6 @@ unsigned int Parser::parseShiftPrime(unsigned int left) {
         consume(TOK_SHL);
         unsigned int right = parseUnaryExpr();
         
-        // проверка: сдвиг на >=32 бита — ошибка
         if (right >= 32) {
             error("Shift amount " + std::to_string(right) + " must be < 32");
         }
@@ -136,4 +165,3 @@ unsigned int Parser::parsePrimaryExpr() {
         return 0;
     }
 }
-
