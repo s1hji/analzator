@@ -3,17 +3,20 @@
 
 #include "scanner.h"
 #include <stdexcept>
+#include <vector>
 
 class Parser {
 public:
     Parser(Scanner& scanner);
-    unsigned int parse(); 
+    unsigned int parse();          // парсит одно выражение (для обратной совместимости)
+    std::vector<unsigned int> parseProgram();  // парсит программу из нескольких выражений
     
 private:
     Scanner& scanner;
     Token currentToken;
     
     void consume(TokenType expected);
+    unsigned int parseProgramPrime();  // для обработки продолжения программы
     unsigned int parseExpr();
     unsigned int parseOrExpr();
     unsigned int parseOrPrime(unsigned int left);
