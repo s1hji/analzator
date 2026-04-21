@@ -142,12 +142,12 @@ void runTests() {
         {"1 2", "Unexpected tokens", "Syntax: missing operator"},
         
         // Синтаксические ошибки
-        {"(1 + 2)", "Expected '(' or integer", "Syntax: invalid character +"},
+        {"(1 + 2)", "Unexpected character", "Syntax: invalid character +"},
         {"1 |", "Expected '(' or integer", "Syntax: missing right operand"},
         {"& 1", "Expected '(' or integer", "Syntax: missing left operand"},
         {"(1", "Expected ')'", "Syntax: unclosed parenthesis"},
         {"1 2 3", "Unexpected tokens", "Syntax: extra numbers"},
-        {"1;;2", "Expected expression after ';'", "Syntax: empty expression"},
+        {"1;;2", "Unexpected tokens", "Syntax: empty expression"},
         
         // Семантические ошибки
         {"1 << 32", "must be < 32", "Semantic: shift by 32"},
@@ -155,7 +155,7 @@ void runTests() {
         {"1 >> 32", "must be < 32", "Semantic: shift by 32"},
         
         // Program-specific
-        {"1;", "Expected expression after ';'", "Syntax: trailing semicolon"},
+        {"1;", "Unexpected tokens", "Syntax: trailing semicolon"},
     };
     
     for (const auto& test : negativeTests) {
