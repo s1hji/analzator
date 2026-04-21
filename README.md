@@ -19,16 +19,12 @@
 
 ## Грамматика (с учётом program)
 ```bnf
-<program> ::= <expr> <program'>
-<program'> ::= ";" <expr> <program'> | ε
+<program> ::= <expr> | <program> ";" <expr>
 <expr>    ::= <or>
-<or>      ::= <and> <or'>
-<or'>     ::= "|" <and> <or'> | ε
-<and>     ::= <shift> <and'>
-<and'>    ::= "&" <shift> <and'> | ε
-<shift>   ::= <unary> <shift'>
-<shift'>  ::= "<<" <unary> <shift'> | ">>" <unary> <shift'> | ε
-<unary>   ::= "~" <unary> | <primary>
+<or>      ::= <and> | <or> "|" <and>
+<and>     ::= <shift> | <and> "&" <shift>
+<shift>   ::= <unary> | <shift> "<<" <unary> | <shift> ">>" <unary>
+<unary>   ::= <primary> | "~" <unary>
 <primary> ::= INT | "(" <expr> ")"
 ```
 
